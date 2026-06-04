@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v5.0 // REAL CORE</title>
+    <style>
+        :root { --neon: #0ff; --glitch: #f0f; --bg: #000; }
+        body { background: var(--bg); color: #eee; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; height: 100vh; }
+        #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+        .ui { position: relative; z-index: 10; max-width: 1200px; margin: 0 auto; padding: 60px 20px; height: 100%; display: flex; flex-direction: column; justify-content: space-between; pointer-events: none; }
+        .header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid #333; padding-bottom: 20px; pointer-events: auto; }
+        h1 { font-size: 4rem; margin: 0; color: var(--neon); text-shadow: 0 0 20px var(--neon); animation: pulse 3s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; text-shadow: 0 0 30px var(--glitch); } }
+        .status { text-align: right; color: var(--glitch); font-size: 0.9rem; }
+        .stat { margin-bottom: 4px; }
+        .blink { animation: blink 1s step-end infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+        .input-area { text-align: center; pointer-events: auto; margin-bottom: 40px; }
+        input { width: 60%; background: rgba(0,0,0,0.8); border: 1px solid var(--neon); padding: 15px; color: var(--neon); font-family: monospace; font-size: 1.1rem; outline: none; box-shadow: 0 0 10px rgba(0,255,255,0.2); transition: 0.3s; }
+        input:focus { box-shadow: 0 0 30px var(--neon); border-color: var(--glitch); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; pointer-events: auto; max-height: 40vh; overflow-y: auto; padding-right: 10px; }
+        .card { background: rgba(0,0,0,0.6); border: 1px solid #333; padding: 15px; border-radius: 6px; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; }
+        .card:hover { border-color: var(--neon); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,255,255,0.2); }
+        .card h3 { margin: 0 0 5px; font-size: 1rem; color: #fff; }
+        .card .meta { font-size: 0.75rem; color: var(--glitch); }
+        .card .live { position: absolute; top: 5px; right: 5px; width: 8px; height: 8px; background: #0f0; border-radius: 50%; box-shadow: 0 0 5px #0f0; animation: blink 1s infinite; }
+        .log-area { margin-top: 10px; font-size: 0.8rem; color: #666; height: 20px; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #111; }
+        ::-webkit-scrollbar-thumb { background: #333; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--neon); }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="ui">
+        <div class="header">
+            <div>
+                <h1>v5.0 // REAL CORE</h1>
+                <div style="color:#666; margin-top:5px;">LIVE WEBSOCKET // PHYSICS ENGINE // REAL AI</div>
+            </div>
+            <div class="status">
+                <div class="stat">LATENCY: <span id="lat">--</span></div>
+                <div class="stat">NODES: <span id="nodes">--</span></div>
+                <div class="stat">ENTROPY: <span id="entropy">--</span></div>
+                <div class="stat">SYNC: <span class="blink">_</span></div>
+            </div>
+        </div>
+        <div class="log-area" id="log">>> 等待系统初始化...</div>
+        <div class="input-area">
+            <input type="text" id="cmd" placeholder=">> 输入指令 (例如: '量子纠缠')... 按 Enter 生成真实文章">
+        </div>
+        <div class="grid" id="grid"></div>
+    </div>
+
+    <script>
+        // --- 1. 真实 Matter.js 物理引擎 ---
+        const Engine = Matter.Engine, Render = Matter.Render, Runner = Matter.Runner, Bodies = Matter.Bodies, Composite = Matter.Composite, Mouse = Matter.Mouse, MouseConstraint = Matter.MouseConstraint;
+        const engine = Engine.create();
+        const world = engine.world;
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let width = window.innerWidth;
+        let height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+
+        const particles = [];
+        for (let i = 0; i < 150; i++) {
+            const particle = Bodies.circle(Math.random() * width, Math.random() * height, 2, { restitution: 0.9, friction: 0.005, frictionAir: 0.02 });
+            particles.push(particle);
+            Composite.add(world, particle);
+        }
+        const mouse = Mouse.create(canvas);
+        const mouseConstraint = MouseConstraint.create(engine, { mouse: mouse, constraint: { stiffness: 0.2, render: { visible: false } } });
+        Composite.add(world, mouseConstraint);
+        const walls = [
+            Bodies.rectangle(width/2, -10, width, 20, { isStatic: true }),
+            Bodies.rectangle(width/2, height+10, width, 20, { isStatic: true }),
+            Bodies.rectangle(width+10, height/2, 20, height, { isStatic: true }),
+            Bodies.rectangle(-10, height/2, 20, height, { isStatic: true })
+        ];
+        Composite.add(world, walls);
+
+        function render() {
+            ctx.clearRect(0, 0, width, height);
+            Composite.allBodies(world).forEach(body => {
+                ctx.beginPath();
+                ctx.moveTo(body.position.x, body.position.y);
+                ctx.arc(body.position.x, body.position.y, body.circleRadius, 0, 2 * Math.PI);
+                ctx.fillStyle = '#0ff';
+                ctx.fill();
+                Composite.allBodies(world).forEach(other => {
+                    if (body === other) return;
+                    const dx = body.position.x - other.position.x;
+                    const dy = body.position.y - other.position.y;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    if (dist < 80) {
+                        ctx.beginPath();
+                        ctx.moveTo(body.position.x, body.position.y);
+                        ctx.lineTo(other.position.x, other.position.y);
+                        ctx.strokeStyle = `rgba(0, 255, 255, ${1 - dist/80})`;
+                        ctx.stroke();
+                    }
+                });
+            });
+            requestAnimationFrame(render);
+        }
+        render();
+        const runner = Runner.create();
+        Runner.run(runner, engine);
+        window.onresize = () => {
+            width = window.innerWidth; height = window.innerHeight;
+            canvas.width = width; canvas.height = height;
+            walls[0].position = { x: width/2, y: -10 }; walls[1].position = { x: width/2, y: height+10 };
+            walls[2].position = { x: width+10, y: height/2 }; walls[3].position = { x: -10, y: height/2 };
+        };
+
+        // --- 2. 真实 WebSocket ---
+        const ws = new WebSocket(`ws://${window.location.host}/ws`);
+        const logEl = document.getElementById('log');
+        const latEl = document.getElementById('lat');
+        const nodesEl = document.getElementById('nodes');
+        const entropyEl = document.getElementById('entropy');
+        const gridEl = document.getElementById('grid');
+        const cmdEl = document.getElementById('cmd');
+
+        ws.onopen = () => { logEl.innerText = `>> 系统连接成功 (WebSocket): ${window.location.host}`; logEl.style.color = '#0f0'; };
+        ws.onerror = (e) => { logEl.innerText = `>> 连接错误: ${e.type}`; logEl.style.color = '#f00'; };
+        
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            if (data.type === 'heartbeat') {
+                latEl.innerText = data.latency;
+                nodesEl.innerText = data.nodes;
+                entropyEl.innerText = data.entropy;
+                if (data.new_topic) {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `<div class="live"></div><h3>${data.new_topic}</h3><div class="meta">>> 实时生成 · ${new Date().toLocaleTimeString()}</div>`;
+                    gridEl.prepend(card);
+                    if (gridEl.children.length > 6) gridEl.lastChild.remove();
+                    particles.forEach(p => { p.velocity.x += (Math.random() - 0.5) * 2; p.velocity.y += (Math.random() - 0.5) * 2; });
+                }
+                logEl.innerText = `>> 数据流更新: LAT=${data.latency}, NODES=${data.nodes}`;
+                logEl.style.color = '#0ff';
+            }
+        };
+
+        // --- 3. 真实 AI 生成 ---
+        cmdEl.addEventListener('keypress', async (e) => {
+            if (e.key === 'Enter') {
+                const topic = cmdEl.value.trim();
+                if (!topic) return;
+                cmdEl.value = '>> 正在连接神经网络...';
+                cmdEl.style.color = '#0f0';
+                logEl.innerText = `>> 发送指令: "${topic}"`;
+                try {
+                    const resp = await fetch(`/api/generate?topic=${encodeURIComponent(topic)}`, { method: 'POST' });
+                    const data = await resp.json();
+                    if (data.status === 'success') {
+                        cmdEl.value = `>> 生成成功! 文件: ${data.filename}`;
+                        const card = document.createElement('div');
+                        card.className = 'card';
+                        card.style.border = '1px solid #0f0';
+                        card.innerHTML = `<div class="live" style="background:#0f0"></div><h3>${topic} (REAL)</h3><div class="meta">>> 已生成 · <a href="/static/${data.filename}" target="_blank" style="color:#0f0">查看</a></div>`;
+                        gridEl.prepend(card);
+                        setTimeout(() => { cmdEl.value = ''; cmdEl.style.color = ''; }, 3000);
+                    } else {
+                        cmdEl.value = `>> 错误: ${data.error}`;
+                    }
+                } catch (err) {
+                    cmdEl.value = `>> 网络错误: ${err.message}`;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

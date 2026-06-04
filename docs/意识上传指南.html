@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>意识上传指南 // v4.5</title>
+<style>
+:root{--bg:#000;--neon:#0ff;--glitch:#f0f;--text:#eee}
+body{background:var(--bg);color:var(--text);font-family:'Courier New',monospace;margin:0;overflow-x:hidden;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.canvas-wrap{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
+.container{position:relative;z-index:10;max-width:800px;padding:40px;text-align:center;background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);border:1px solid var(--neon);box-shadow:0 0 30px var(--neon);border-radius:12px}
+h1{font-size:3rem;margin:0 0 20px;color:var(--neon);text-shadow:0 0 10px var(--neon), 0 0 20px var(--glitch);letter-spacing:-2px}
+.meta{color:var(--glitch);font-size:1rem;margin-bottom:30px}
+.content{text-align:left;font-size:1.1rem;line-height:1.8;color:#ccc}
+.highlight{border-left:3px solid var(--neon);padding-left:20px;margin:20px 0;background:linear-gradient(90deg,rgba(0,255,255,0.1),transparent);color:#fff}
+.btn{display:inline-block;margin-top:30px;padding:12px 30px;background:transparent;border:1px solid var(--neon);color:var(--neon);font-family:monospace;text-decoration:none;transition:0.3s;cursor:pointer;font-weight:bold;letter-spacing:1px}
+.btn:hover{background:var(--neon);color:#000;box-shadow:0 0 20px var(--neon)}
+</style></head>
+<body>
+<canvas id="c" class="canvas-wrap"></canvas>
+<div class="container">
+    <div class="meta">>> 数据流接收中... [OK]</div>
+    <h1>意识上传指南</h1>
+    <div class="content">
+        <div class="highlight">> 系统警告：检测到高危技术趋势。正在解析核心逻辑...</div>
+        <p>在 v4.5 的奇点网络中，意识上传指南 已突破临界值。我们将从底层协议到应用层进行全栈扫描。</p>
+        <p>神经元连接数：1051 | 延迟：7ms</p>
+        <p>数据冲刷完成。等待指令...</p>
+    </div>
+    <a href="index.html" class="btn">>> 返回主控台</a>
+</div>
+<script>
+const c=document.getElementById('c'),x=c.getContext('2d');let w,h,n=[];
+const resize=()=>{w=c.width=window.innerWidth;h=c.height=window.innerHeight};
+const mk=()=>{n=[];for(let i=0;i<200;i++)n.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-0.5),vy:(Math.random()-0.5)})};
+const draw=()=>{x.clearRect(0,0,w,h);x.fillStyle='#0ff';x.strokeStyle='rgba(0,255,255,0.2)';n.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;x.beginPath();x.arc(p.x,p.y,1,0,Math.PI*2);x.fill()});n.forEach((a,i)=>{n.slice(i+1).forEach(b=>{let d=Math.hypot(a.x-b.x,a.y-b.y);if(d<100){x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke()}})});requestAnimationFrame(draw)};
+window.onresize=resize;resize();mk();draw();
+</script></body></html>

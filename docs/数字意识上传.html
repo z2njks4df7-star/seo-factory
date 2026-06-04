@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>数字意识上传</title>
+<style>
+:root{--neon:#0ff;--glitch:#f0f;--bg:#001}
+body{background:var(--bg);color:#eee;font-family:monospace;margin:0;display:flex;justify-content:center;align-items:center;min-height:100vh;overflow:hidden}
+.wrap{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;background:conic-gradient(from 0deg at 50% 50%, #000, #001a1a, #0d001a, #1a001a, #000);animation:spin 10s linear infinite}
+@keyframes spin{100%{transform:rotate(360deg)}}
+.cnt{position:relative;z-index:10;padding:40px;background:rgba(0,0,0,0.8);border:1px solid var(--neon);box-shadow:0 0 30px var(--neon);border-radius:8px;text-align:center;max-width:600px}
+h1{font-size:2.5rem;margin:0 0 20px;color:var(--neon);position:relative;animation:glitch 2s infinite}
+@keyframes glitch{
+0%{text-shadow:2px 0 var(--glitch), -2px 0 #0ff}
+25%{text-shadow:-2px 0 var(--glitch), 2px 0 #0ff}
+50%{text-shadow:2px 0 var(--glitch), -2px 0 #0ff}
+75%{text-shadow:-2px 0 var(--glitch), 2px 0 #0ff}
+100%{text-shadow:2px 0 var(--glitch), -2px 0 #0ff}
+}
+.meta{color:var(--glitch);margin-bottom:20px}
+.btn{display:inline-block;padding:10px 25px;border:1px solid var(--neon);color:var(--neon);text-decoration:none;transition:0.3s;cursor:pointer}
+.btn:hover{background:var(--neon);color:#000;box-shadow:0 0 15px var(--neon)}
+</style></head>
+<body>
+<div class="wrap"></div>
+<div class="cnt">
+    <div class="meta">>> 系统过载... [OK]</div>
+    <h1>数字意识上传</h1>
+    <p style="color:#ccc;line-height:1.6">检测到高能现象：数字意识上传。正在扫描量子涨落...<br>数据流密度：93% | 熵值：13</p>
+    <p>系统已进入“事件视界”模式。无法返回。</p>
+    <a href="index.html" class="btn">>> 逃离视界</a>
+</div>
+</body></html>
