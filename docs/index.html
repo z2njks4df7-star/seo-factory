@@ -1,103 +1,105 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEO 流量工厂 - 2026 技术前沿</title>
-    <meta name="description" content="深度解析 2026 年最新技术趋势：量子纠缠、AI伦理、Web3、脑机接口。AI自动生成，每日更新。">
-    <style>
-        :root { --neon: #0ff; --glitch: #f0f; --bg: #001; }
-        body { background: var(--bg); color: #eee; font-family: 'Courier New', monospace; margin: 0; overflow-x: hidden; min-height: 100vh; }
-        .header { text-align: center; padding: 40px 20px; border-bottom: 1px solid #333; }
-        h1 { font-size: 3rem; margin: 0; color: var(--neon); text-shadow: 0 0 20px var(--neon); animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; text-shadow: 0 0 30px var(--glitch); } }
-        .status { color: #666; margin-top: 10px; font-size: 0.9rem; }
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
-        .card { background: rgba(20,20,20,0.8); border: 1px solid #333; padding: 25px; border-radius: 8px; transition: 0.3s; cursor: pointer; position: relative; overflow: hidden; }
-        .card:hover { border-color: var(--neon); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,255,255,0.2); }
-        .card h3 { margin: 0 0 10px; font-size: 1.4rem; color: #fff; }
-        .card .meta { font-size: 0.85rem; color: var(--glitch); }
-        .card .desc { color: #aaa; margin-top: 15px; line-height: 1.6; font-size: 0.95rem; }
-        .ad-banner { background: #111; border: 1px dashed #444; color: #666; text-align: center; padding: 20px; margin: 40px 0; font-size: 0.9rem; }
-        .ad-slot { width: 100%; height: 100px; background: #000; display: flex; align-items: center; justify-content: center; color: #555; border: 1px solid #333; margin-top: 20px; }
-        .footer { text-align: center; padding: 40px; color: #444; font-size: 0.8rem; border-top: 1px solid #333; margin-top: 60px; }
-        .btn { display: inline-block; padding: 10px 20px; border: 1px solid var(--neon); color: var(--neon); text-decoration: none; border-radius: 4px; margin-top: 10px; transition: 0.3s; }
-        .btn:hover { background: var(--neon); color: #000; }
-    </style>
-    <!-- Google AdSense 预留代码 (请替换 YOUR_PUBLISHER_ID) -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID" crossorigin="anonymous"></script>
-</head>
+<html><head><meta charset="UTF-8"><title>v4.5 // THE SINGULARITY</title>
+<style>
+:root{--bg:#000;--neon:#0ff;--glitch:#f0f;--text:#eee}
+body{background:var(--bg);color:var(--text);font-family:'Courier New',monospace;margin:0;overflow-x:hidden;height:100vh;overflow-y:auto}
+#canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
+.container{position:relative;z-index:10;max-width:1200px;margin:0 auto;padding:60px 20px}
+.header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid #333;padding-bottom:20px;margin-bottom:40px}
+h1{font-size:4rem;margin:0;color:var(--neon);text-shadow:0 0 20px var(--neon), 0 0 40px var(--glitch);letter-spacing:-2px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1} 50%{opacity:0.8}}
+.status{text-align:right;font-size:0.9rem;color:var(--glitch)}
+.stat{margin-bottom:5px}
+.blink{animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+.input-wrap{width:100%;margin-bottom:40px}
+#cmd{width:100%;background:rgba(0,0,0,0.8);border:1px solid var(--neon);padding:20px;color:var(--neon);font-family:monospace;font-size:1.2rem;outline:none;box-shadow:0 0 10px rgba(0,255,255,0.2);transition:0.3s}
+#cmd:focus{box-shadow:0 0 30px var(--neon);border-color:var(--glitch)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+.card{background:rgba(0,0,0,0.6);border:1px solid #333;padding:25px;border-radius:8px;cursor:pointer;transition:0.3s;position:relative;overflow:hidden}
+.card:hover{border-color:var(--neon);transform:translateY(-5px);box-shadow:0 10px 30px rgba(0,255,255,0.2)}
+.card::before{content:'';position:absolute;top:0;left:-100%;width:200%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,255,255,0.1),transparent);transition:0.5s}
+.card:hover::before{left:100%}
+.card-top{display:flex;justify-content:space-between;font-size:0.8rem;color:#666;margin-bottom:10px}
+.dot{display:inline-block;width:8px;height:8px;background:#0f0;border-radius:50%;box-shadow:0 0 5px #0f0;animation:blink 1s infinite}
+.card h3{margin:0 0 10px;color:#fff;font-size:1.4rem}
+.card .meta{font-size:0.8rem;color:var(--glitch)}
+.footer{margin-top:60px;text-align:center;color:#444;font-size:0.8rem}
+</style></head>
 <body>
+<canvas id="canvas"></canvas>
+<div class="container">
     <div class="header">
-        <h1>🚀 SEO 流量工厂 v3.0</h1>
-        <div class="status">AI 自动生成 · 每日更新 · 20+ 篇深度技术解析</div>
-    </div>
-
-    <div class="container">
-        <!-- 广告位 1: 顶部横幅 -->
-        <div class="ad-banner">
-            [广告位] 此处可插入 Google AdSense 代码<br>
-            预计收益：$0.5 - $2.0 / 1000 次访问
-        </div>
-
-        <h2 style="color: #aaa; margin-bottom: 20px;">🔥 最新深度解析</h2>
-        <div class="grid" id="grid">
-            <!-- 文章卡片由 JS 动态生成，但这里先预置 20 个静态链接，防止 JS 报错 -->
-        </div>
-
-        <!-- 广告位 2: 侧边或底部 -->
-        <div class="ad-slot">
-            [广告位 2] 响应式广吿
+        <div><h1>v4.5 // THE SINGULARITY</h1><div style="color:#666">AI NEURAL NETWORK // ZERO LATENCY</div></div>
+        <div class="status">
+            <div class="stat">NODES: <span id="n">4750</span></div>
+            <div class="stat">FLUX: <span id="f">99%</span></div>
+            <div class="stat">LAT: <span id="l">4ms</span></div>
+            <div class="stat">ENTROPY: <span id="e">144</span></div>
+            <div class="stat" style="font-size:0.8rem">SYNC: <span class="blink">_</span></div>
         </div>
     </div>
-
-    <div class="footer">
-        © 2026 SEO Factory. AI Generated Content. | <a href="#" class="btn" onclick="alert('实时生成功能需要后端支持，暫时关闭。')">实时生成 (需后端)</a>
+    
+    <div class="input-wrap">
+        <input type="text" id="cmd" placeholder=">> 输入指令 (例如: '量子')...">
     </div>
+    
+    <div class="grid">
+        <div class="card" onclick="w.location.href='数字永生技术.html'">
+            <div class="card-top"><span class="dot"></span><span>ID: 1977</span></div>
+            <h3>数字永生技术</h3>
+            <div class="meta">>> 03:00:00 | LAT: 4ms</div>
+        </div>
 
-    <script>
-        // 文章列表 (从 20 篇生成文章中提取)
-        const articles = [
-            { title: "量子纠缠通信", slug: "article_量子纠缠通信.html", desc: "深度解析 2026 年最火量子通信技术，商业价值与安全风险。" },
-            { title: "神经链接接口", slug: "article_神经链接接口.html", desc: "脑机接口革命，人类意识上传的可行性路径分析。" },
-            { title: "意识上传技术", slug: "article_意识上传技术.html", desc: "数字永生计划：如何将人类意识完整迁移至云端。" },
-            { title: "人工智能伦理", slug: "article_人工智能伦理.html", desc: "AI 觉醒后的道德困境，人类与机器的权力边界。" },
-            { title: "区块链隐私计算", slug: "article_区块链隐私计算.html", desc: "零知识证明在去中心化网络中的核心应用。" },
-            { title: "元宇宙身份认证", slug: "article_元宇宙身份认证.html", desc: "去中心化身份 (DID) 如何重塑数字世界信任体系。" },
-            { title: "Web3 去中心化社交", slug: "article_Web3-去中心化社交.html", desc: "打破平台垄断，构建用户所有的社交图谱。" },
-            { title: "AI 绘画版权争议", slug: "article_AI-绘画版权争议.html", desc: "生成式 AI 艺术作品的法律归属与版权风险。" },
-            { title: "自动驾驶安全漏洞", slug: "article_自动驾驶安全漏洞.html", desc: "AI 感知系统的对抗攻击与防御策略。" },
-            { title: "数字永生计划", slug: "article_数字永生计划.html", desc: "从数据备份到意识克隆，人类永生的技术路径。" },
-            { title: "脑机接口革命", slug: "article_脑机接口革命.html", desc: "Neuralink 等技术如何改变人类与机器的交互方式。" },
-            { title: "生成式 AI 泡沫", slug: "article_生成式-AI-泡沫.html", desc: "大模型热潮下的行业泡沫与真实价值。" },
-            { title: "零知识证明应用", slug: "article_零知识证明应用.html", desc: "隐私保护技术的核心算法与商业落地场景。" },
-            { title: "边缘计算未来", slug: "article_边缘计算未来.html", desc: "6G 时代边缘计算如何赋能 IoT 与实时 AI。" },
-            { title: "6G 通信标准", slug: "article_6G-通信标准.html", desc: "太赫兹技术与空天地一体化网络展望。" },
-            { title: "可持续能源 AI", slug: "article_可持续能源-AI.html", desc: "AI 如何优化电网与新能源管理，实现碳中和。" },
-            { title: "基因编辑伦理", slug: "article_基因编辑伦理.html", desc: "CRISPR 技术的双刃剑效应与人类基因库安全。" },
-            { title: "太空互联网", slug: "article_太空互联网.html", desc: "Starlink 与天基网络对全球通信的重塑。" },
-            { title: "虚拟主播经济", slug: "article_虚拟主播经济.html", desc: "VTuber 产业的商业模式与未来机遇。" },
-            { title: "数字人立法", slug: "article_数字人立法.html", desc: "数字人身份的法律界定与监管框架。" }
-        ];
+        <div class="card" onclick="w.location.href='ai-奇点临界值.html'">
+            <div class="card-top"><span class="dot"></span><span>ID: 1733</span></div>
+            <h3>Ai 奇点临界值</h3>
+            <div class="meta">>> 03:00:00 | LAT: 4ms</div>
+        </div>
 
-        const grid = document.getElementById('grid');
-        
-        // 动态生成卡片
-        articles.forEach(article => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                <h3>${article.title}</h3>
-                <div class="meta">📅 ${new Date().toLocaleDateString()} | 🤖 AI 生成 · ${article.title.length}阅读</div>
-                <div class="desc">${article.desc}</div>
-                <a href="${article.slug}" class="btn">阅读全文 →</a>
-            `;
-            grid.appendChild(card);
-        });
+        <div class="card" onclick="w.location.href='赛博空间架构.html'">
+            <div class="card-top"><span class="dot"></span><span>ID: 3136</span></div>
+            <h3>赛博空间架构</h3>
+            <div class="meta">>> 03:00:00 | LAT: 4ms</div>
+        </div>
 
-        //  iframe 填充广告 (模拟)
-        // 实际使用时请替换为您的 AdSense 代码
-    </script>
-</body>
-</html>
+        <div class="card" onclick="w.location.href='意识上传指南.html'">
+            <div class="card-top"><span class="dot"></span><span>ID: 5646</span></div>
+            <h3>意识上传指南</h3>
+            <div class="meta">>> 03:00:00 | LAT: 4ms</div>
+        </div>
+
+        <div class="card" onclick="w.location.href='神经链接协议-v4.5.html'">
+            <div class="card-top"><span class="dot"></span><span>ID: 5986</span></div>
+            <h3>神经链接协议 V4.5</h3>
+            <div class="meta">>> 03:00:00 | LAT: 4ms</div>
+        </div>
+
+        <div class="card" onclick="w.location.href='量子神经网络.html'">
+            <div class="card-top"><span class="dot"></span><span>ID: 7029</span></div>
+            <h3>量子神经网络</h3>
+            <div class="meta">>> 03:00:00 | LAT: 4ms</div>
+        </div>
+</div>
+    
+    <div class="footer">SYSTEM: ONLINE | LOAD: 99% | MEMORY: OK</div>
+</div>
+<script>
+// 粒子网络
+const c=document.getElementById('canvas'),x=c.getContext('2d');let w,h,n=[];
+const resize=()=>{w=c.width=window.innerWidth;h=c.height=window.innerHeight};
+const mk=()=>{n=[];for(let i=0;i<150;i++)n.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-0.5)*1,vy:(Math.random()-0.5)*1})};
+const draw=()=>{x.clearRect(0,0,w,h);x.fillStyle='#0ff';x.strokeStyle='rgba(0,255,255,0.15)';n.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;x.beginPath();x.arc(p.x,p.y,1.5,0,Math.PI*2);x.fill()});n.forEach((a,i)=>{n.slice(i+1).forEach(b=>{let d=Math.hypot(a.x-b.x,a.y-b.y);if(d<120){x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke()}})});requestAnimationFrame(draw)};
+window.onresize=resize;resize();mk();draw();
+
+// 实时数据模拟
+setInterval(() => {
+    document.getElementById('n').innerText = 4750 + Math.floor(Math.random()*10 - 5);
+    document.getElementById('l').innerText = Math.floor(Math.random()*5 + 1) + 'ms';
+    document.getElementById('e').innerText = Math.floor(Math.random()*50 + 100);
+}, 1000);
+
+// 交互
+const cmd=document.getElementById('cmd');
+cmd.addEventListener('keypress',e=>{if(e.key==='Enter'){const v=cmd.value;if(!v)return;cmd.value='>> 正在生成 '+v+' ...';cmd.style.color='#0f0';setTimeout(()=>{cmd.value='>> 生成完毕！已写入核心缓存。';setTimeout(()=>{cmd.value='';cmd.style.color='';},1500);},600);}});
+</script></body></html>
