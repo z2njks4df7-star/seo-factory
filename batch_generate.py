@@ -13,9 +13,9 @@ DOCS = BASE / "docs"
 DOCS.mkdir(exist_ok=True)
 
 # 配置
-NIM_API_KEY = os.getenv("NVIDIA_API_KEY", "")
+NIM_API_KEY = "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"
 BASE_URL = "https://integrate.api.nvidia.com/v1"
-MODEL = "nvidia/nemotron-4-340b-instruct"
+MODEL = "meta/llama-3.1-405b-instruct"
 
 # 模拟热点词库 (实际可替换为 Reddit/Google Trends 爬虫)
 HOT_TOPICS = [

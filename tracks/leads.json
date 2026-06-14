@@ -1,0 +1,17 @@
+{
+  "leads": [
+    {
+      "id": "2738c9cf",
+      "email": "test@valid.com",
+      "source": "web",
+      "topic": "test-news",
+      "timestamp": "2026-06-14T11:08:09.764275",
+      "status": "sent"
+    }
+  ],
+  "stats": {
+    "total": 1,
+    "today": 1,
+    "last_date": "2026-06-14"
+  }
+}

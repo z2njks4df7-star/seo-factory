@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>2026 资产危机模拟器 | AI 实时诊断 | 生成专属报告</title>
+    <meta name="description" content="输入你的资产数据，AI 实时推演 2026 年生存率。生成专属诊断报告，一键下载 PDF。">
+    <style>
+        :root { --primary: #10b981; --danger: #ef4444; --bg: #0f172a; --card: #1e293b; --text: #f8fafc; --accent: #f59e0b; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; margin: 40px 0; }
+        .header h1 { font-size: 2.5rem; color: var(--danger); margin: 0; text-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
+        .header .badge { background: var(--accent); color: #000; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; display: inline-block; margin-top: 10px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        .card { background: var(--card); padding: 30px; border-radius: 16px; border: 1px solid #334155; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 30px; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-weight: bold; margin-bottom: 8px; color: #cbd5e1; }
+        .input-group input, .input-group select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 1rem; box-sizing: border-box; }
+        .input-group input:focus { outline: 2px solid var(--primary); border-color: var(--primary); }
+        .btn-analyze { width: 100%; padding: 16px; background: linear-gradient(135deg, #10b981 0%, #047857 100%); color: #fff; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
+        .btn-analyze:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5); }
+        .btn-analyze:disabled { background: #475569; cursor: not-allowed; transform: none; }
+        .result-area { display: none; margin-top: 30px; animation: slideIn 0.5s ease-out; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .score-box { text-align: center; padding: 20px; background: rgba(239, 68, 68, 0.1); border: 2px solid var(--danger); border-radius: 12px; margin-bottom: 20px; }
+        .score-val { font-size: 3.5rem; font-weight: bold; color: var(--danger); line-height: 1; }
+        .score-label { font-size: 1.1rem; color: #fca5a5; margin-top: 5px; }
+        .detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+        .detail-item { background: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #334155; }
+        .detail-item strong { display: block; color: #94a3b8; font-size: 0.9rem; }
+        .detail-item span { font-size: 1.2rem; font-weight: bold; color: #fff; }
+        .recommendation { background: #064e3b; border: 1px solid #10b981; padding: 20px; border-radius: 12px; margin-top: 20px; }
+        .recommendation h3 { color: #34d399; margin-top: 0; }
+        .recommendation ul { padding-left: 20px; }
+        .report-btn { display: block; width: 100%; background: #3b82f6; color: #fff; text-align: center; padding: 15px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: 0.2s; }
+        .report-btn:hover { background: #2563eb; }
+        .share-canvas { display: none; width: 100%; max-width: 400px; margin: 20px auto; border: 2px solid var(--primary); border-radius: 12px; }
+        .live-threat { position: fixed; bottom: 20px; right: 20px; background: rgba(0,0,0,0.9); border: 1px solid var(--danger); padding: 10px 15px; border-radius: 8px; font-size: 0.85rem; color: var(--danger); z-index: 999; display: flex; align-items: center; gap: 10px; }
+        .live-threat::before { content: "🚨"; animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .progress-bar { width: 100%; height: 4px; background: #333; border-radius: 2px; margin-top: 5px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--danger); width: 0%; transition: width 1s linear; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="badge">AI 实时推演引擎 v12.0</div>
+        <h1>2026 资产危机模拟器</h1>
+        <p style="color:#94a3b8; font-size:1.1rem; margin-top:10px">输入你的资产数据，AI 实时推演生存率，生成专属诊断报告。</p>
+    </div>
+
+    <div class="card" id="input-card">
+        <div class="input-group">
+            <label>🏠 核心资产类型</label>
+            <select id="assetType">
+                <option value="btc">比特币 (BTC)</option>
+                <option value="eth">以太坊 (ETH)</option>
+                <option value="gold">黄金 (实物)</option>
+                <option value="house">房产 (一线城市)</option>
+                <option value="cash">现金/存款</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>💰 当前资产价值 (CNY)</label>
+            <input type="number" id="assetValue" value="1000000" placeholder="例：1000000">
+        </div>
+        <div class="input-group">
+            <label>📉 预期通胀率/贬值率 (%)</label>
+            <input type="number" id="inflation" value="15" placeholder="例：15">
+        </div>
+        <div class="input-group">
+            <label>⚡ 量子攻击风险等级 (1-10)</label>
+            <select id="riskLevel">
+                <option value="3">低风险 (3)</option>
+                <option value="6">中风险 (6)</option>
+                <option value="9" selected>高风险 (9) - 2026 常态</option>
+                <option value="10">极高风险 (10) - 临界点</option>
+            </select>
+        </div>
+        <button class="btn-analyze" onclick="analyze()">🔥 立即开始 AI 推演</button>
+    </div>
+
+    <div class="result-area" id="result">
+        <div class="card">
+            <div class="score-box">
+                <div class="score-val" id="survivalRate">--</div>
+                <div class="score-label">资产生存率 (2026)</div>
+            </div>
+            
+            <div class="detail-grid">
+                <div class="detail-item">
+                    <strong>📉 预计贬值金额</strong>
+                    <span id="lossAmount">--</span>
+                </div>
+                <div class="detail-item">
+                    <strong>⏰ 安全倒计时</strong>
+                    <span id="timeLeft">--</span>
+                </div>
+                <div class="detail-item">
+                    <strong>🔒 加密状态</strong>
+                    <span id="encStatus" style="color:var(--danger)">已破解</span>
+                </div>
+            </div>
+
+            <div class="recommendation">
+                <h3>🛡️ AI 专家防御建议</h3>
+                <ul id="recommendationList">
+                    <!-- JS 填充 -->
+                </ul>
+            </div>
+
+            <a href="#" class="report-btn" onclick="downloadReport(event)">📄 生成并下载专属诊断报告 (PDF)</a>
+            
+            <canvas id="shareCanvas" class="share-canvas" width="400" height="600"></canvas>
+            <button class="report-btn" style="background:var(--accent); color:#000; margin-top:10px" onclick="generateShareImage()">📱 生成分享海报 (发朋友圈)</button>
+        </div>
+    </div>
+</div>
+
+<div class="live-threat">
+    <div>
+        <div>全网资产破解进度</div>
+        <div class="progress-bar"><div class="progress-fill" id="threatProgress"></div></div>
+        <div style="font-size:0.75rem; margin-top:2px" id="threatText">98.7%</div>
+    </div>
+</div>
+
+<script>
+// 模拟实时威胁进度条
+let progress = 98.0;
+setInterval(() => {
+    progress += Math.random() * 0.1;
+    if(progress > 99.9) progress = 98.0;
+    document.getElementById('threatProgress').style.width = progress + '%';
+    document.getElementById('threatText').innerText = progress.toFixed(1) + '%';
+}, 1000);
+
+// AI 推演逻辑 (简化版，实际可接后端 API)
+function analyze() {
+    const btn = document.querySelector('.btn-analyze');
+    btn.disabled = true;
+    btn.innerText = "🤖 AI 正在推演中...";
+    
+    setTimeout(() => {
+        const type = document.getElementById('assetType').value;
+        const value = parseFloat(document.getElementById('assetValue').value);
+        const inflation = parseFloat(document.getElementById('inflation').value) / 100;
+        const risk = parseInt(document.getElementById('riskLevel').value);
+        
+        // 模拟推演算法
+        let survival = 100 - (inflation * 100) - (risk * 2);
+        if(survival < 0) survival = 0;
+        if(type === 'btc' && risk > 8) survival *= 0.8; // 量子风险加成
+        
+        const loss = value * (1 - survival/100);
+        const years = survival > 0 ? (survival / (inflation * 100)).toFixed(1) : "0.0";
+        
+        // 渲染结果
+        document.getElementById('survivalRate').innerText = survival.toFixed(1) + '%';
+        document.getElementById('lossAmount').innerText = '¥' + loss.toLocaleString(undefined, {maximumFractionDigits:0});
+        document.getElementById('timeLeft').innerText = years + ' 年';
+        document.getElementById('encStatus').innerText = risk >= 8 ? "🚨 已破解" : "🔒 暂安全";
+        document.getElementById('encStatus').style.color = risk >= 8 ? "var(--danger)" : "var(--primary)";
+        
+        // 生成建议
+        const recs = [];
+        if(survival < 30) {
+            recs.push("⚠️ <strong>极度危险：</strong> 建议立即将资产转换为硬通货（黄金/实物）。");
+            recs.push("🔐 <strong>立即行动：</strong> 使用我们的"量子防御工具包"加密你的数字资产。");
+            recs.push("🤝 <strong>专家介入：</strong> 加入私域群，获取<em>一对一资产保全方案</em>。");
+        } else if (survival < 70) {
+            recs.push("⚠️ <strong>高风险：</strong> 建议分散投资，降低单一资产占比。");
+            recs.push("📉 <strong>对冲策略：</strong> 考虑做空相关风险资产，获取反脆弱收益。");
+        } else {
+            recs.push("✅ <strong>相对安全：</strong> 保持现有策略，但需每月监控风险指数。");
+            recs.push("📈 <strong>增值建议：</strong> 配置部分抗通胀资产（如REITs、大宗商品）。");
+        }
+        
+        const list = document.getElementById('recommendationList');
+        list.innerHTML = recs.map(r => `<li>${r}</li>`).join('');
+        
+        document.querySelector('#input-card').style.display = 'none';
+        document.getElementById('result').style.display = 'block';
+        
+        btn.disabled = false;
+        btn.innerText = "🔄 重新推演";
+    }, 1500);
+}
+
+function downloadReport(e) {
+    e.preventDefault();
+    alert("✅ 正在生成 PDF 报告...\n(真实环境需接入 jsPDF 库，此处仅演示 UI 交互)\n\n报告已发送至您的邮箱/微信。");
+}
+
+function generateShareImage() {
+    const canvas = document.getElementById('shareCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    // 背景
+    ctx.fillStyle = '#0f172a';
+    ctx.fillRect(0, 0, 400, 600);
+    
+    // 文字
+    ctx.fillStyle = '#ef4444';
+    ctx.font = 'bold 30px sans-serif';
+    ctx.fillText('2026 资产危机', 50, 80);
+    
+    ctx.fillStyle = '#fff';
+    ctx.font = '20px sans-serif';
+    const val = document.getElementById('survivalRate').innerText;
+    ctx.fillText('你的生存率：' + val, 50, 150);
+    
+    ctx.font = 'bold 40px sans-serif';
+    ctx.fillStyle = '#f59e0b';
+    ctx.fillText('仅剩 ' + document.getElementById('timeLeft').innerText, 50, 250);
+    
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '16px sans-serif';
+    ctx.fillText('扫描二维码，获取你的专属防御方案', 50, 350);
+    
+    // 模拟二维码
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(150, 380, 100, 100);
+    ctx.fillStyle = '#000';
+    ctx.font = '12px sans-serif';
+    ctx.fillText('QR CODE', 155, 435);
+    
+    ctx.fillStyle = '#34d399';
+    ctx.font = '16px sans-serif';
+    ctx.fillText('扫码加入暗网防御联盟', 50, 550);
+    
+    document.getElementById('shareCanvas').style.display = 'block';
+    document.querySelector('.report-btn[onclick="generateShareImage()"]').innerText = "📸 图片已生成，右击保存！";
+}
+</script>
+</body>
+</html>

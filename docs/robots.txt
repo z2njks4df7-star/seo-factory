@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Sitemap: https://z2njks4df7-star.github.io/seo-factory/sitemap.xml
+
+# 重点禁令：不让爬虫抓取敏感后台（虽然有，但防君子不防小人）
+Disallow: /admin/
+Disallow: /tracks/

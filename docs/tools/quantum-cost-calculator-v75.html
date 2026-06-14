@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 量子计算成本计算器 | 免费 | 无需登录</title>
+    <style>
+        :root { --primary: #10b981; --bg: #0f172a; --card: #1e293b; --text: #f8fafc; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 700px; margin: 40px auto; }
+        h1 { color: var(--primary); text-align: center; margin-bottom: 10px; }
+        .subtitle { text-align: center; color: #94a3b8; margin-bottom: 40px; font-size: 0.95rem; }
+        .card { background: var(--card); padding: 30px; border-radius: 12px; border: 1px solid #334155; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 500; color: #cbd5e1; }
+        input, select { width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 1rem; box-sizing: border-box; }
+        input:focus { outline: 2px solid var(--primary); border-color: var(--primary); }
+        .btn { width: 100%; padding: 14px; background: var(--primary); color: #fff; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.2s; margin-top: 10px; }
+        .btn:hover { filter: brightness(1.1); }
+        .btn-share { background: #3b82f6; margin-top: 15px; }
+        .result { margin-top: 25px; padding: 20px; background: rgba(16, 185, 129, 0.1); border-radius: 8px; border: 1px solid var(--primary); display: none; }
+        .result h3 { margin-top: 0; color: var(--primary); }
+        .data-row { display: flex; justify-content: space-between; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .data-row:last-child { border-bottom: none; }
+        .data-val { font-weight: bold; color: #34d399; }
+        .note { font-size: 0.85rem; color: #64748b; margin-top: 20px; text-align: center; }
+        .share-box { margin-top: 15px; padding: 10px; background: #0f172a; border-radius: 6px; word-break: break-all; font-family: monospace; font-size: 0.85rem; color: #94a3b8; display: none; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <a href="../index.html" style="color:#38bdf8; text-decoration:none;">← 返回工具箱</a>
+    <h1>⚛️ 量子计算成本计算器</h1>
+    <p class="subtitle">2026 实时成本模型 | 纯前端计算 | 结果可分享</p>
+
+    <div class="card">
+        <div class="form-group">
+            <label>目标算法</label>
+            <select id="algo">
+                <option value="shor">Shor 算法 (分解 2048 位 RSA)</option>
+                <option value="grover">Grover 算法 (搜索 1TB 数据库)</option>
+                <option value="chem">量子化学模拟 (催化剂研发)</option>
+                <option value="ml">量子机器学习 (分类器训练)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>量子比特数 (Qubits)</label>
+            <input type="number" id="qubits" value="4096" min="100" max="100000">
+        </div>
+        <div class="form-group">
+            <label>纠错码开销 (Overhead)</label>
+            <select id="code">
+                <option value="1000">Surface Code (1000:1)</option>
+                <option value="500">LDPC Code (500:1)</option>
+                <option value="100">Future Optimal (100:1)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>运行时长</label>
+            <select id="duration">
+                <option value="1">1 小时</option>
+                <option value="24">24 小时</option>
+                <option value="168">1 周</option>
+            </select>
+        </div>
+
+        <button class="btn" onclick="calculate()">🧮 立即计算</button>
+
+        <div id="result" class="result">
+            <h3>💰 估算成本 (2026 模型)</h3>
+            <div class="data-row"><span>物理量子比特需求:</span><span class="data-val" id="res-physics">-</span></div>
+            <div class="data-row"><span>算力需求 (TFLOPS):</span><span class="data-val" id="res-tflops">-</span></div>
+            <div class="data-row"><span>电力成本 (USD):</span><span class="data-val" id="res-power">-</span></div>
+            <div class="data-row"><span>硬件租赁 (USD):</span><span class="data-val" id="res-hw">-</span></div>
+            <div class="data-row"><span style="font-size:1.1rem">🔥 总成本:</span><span class="data-val" id="res-total" style="font-size:1.2rem">-</span></div>
+            
+            <button class="btn btn-share" onclick="shareResult()">🔗 生成分享链接</button>
+            <div id="shareBox" class="share-box"></div>
+        </div>
+
+        <p class="note">⚠️ 数据基于 IBM/Google 2026 预估价，仅供参考。无需登录，结果实时计算。</p>
+    </div>
+</div>
+
+<script>
+// 2026 成本模型 (简化)
+const PRICES = {
+    power: 0.12, // USD/kWh
+    hw_rent: 5000, // USD per TFLOPS / hour (模拟)
+    hw_depreciation: 0.2 // USD per qubit-hour
+};
+
+function calculate() {
+    const algo = document.getElementById('algo').value;
+    const qubits = parseFloat(document.getElementById('qubits').value);
+    const codeRatio = parseInt(document.getElementById('code').value);
+    const hours = parseFloat(document.getElementById('duration').value);
+
+    // 逻辑计算
+    const physQubits = qubits * codeRatio;
+    let tflops = 0;
+    if(algo === 'shor') tflops = physQubits * 0.5; 
+    else if(algo === 'grover') tflops = physQubits * 0.1;
+    else if(algo === 'chem') tflops = physQubits * 2.0;
+    else tflops = physQubits * 1.5;
+
+    // 成本计算
+    const powerKWh = physQubits * 0.05 * hours; // 假设每个物理比特 0.05kWh/h
+    const powerCost = powerKWh * PRICES.power;
+    const hwCost = (tflops * PRICES.hw_rent + physQubits * PRICES.hw_depreciation) * hours;
+    const total = powerCost + hwCost;
+
+    // 渲染
+    document.getElementById('res-physics').innerText = physQubits.toLocaleString();
+    document.getElementById('res-tflops').innerText = tflops.toLocaleString(undefined, {maximumFractionDigits:0});
+    document.getElementById('res-power').innerText = '$' + powerCost.toLocaleString(undefined, {maximumFractionDigits:2});
+    document.getElementById('res-hw').innerText = '$' + hwCost.toLocaleString(undefined, {maximumFractionDigits:0});
+    document.getElementById('res-total').innerText = '$' + total.toLocaleString(undefined, {maximumFractionDigits:0});
+
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('shareBox').style.display = 'none';
+}
+
+function shareResult() {
+    const algo = document.getElementById('algo').value;
+    const qubits = document.getElementById('qubits').value;
+    const code = document.getElementById('code').value;
+    const dur = document.getElementById('duration').value;
+    
+    const params = new URLSearchParams({a:algo, q:qubits, c:code, d:dur});
+    const url = window.location.origin + window.location.pathname + '?' + params.toString();
+    
+    const box = document.getElementById('shareBox');
+    box.innerText = url;
+    box.style.display = 'block';
+    
+    navigator.clipboard.writeText(url).then(() => {
+        box.style.color = '#34d399';
+        setTimeout(() => box.style.color = '#94a3b8', 2000);
+    });
+}
+
+// URL 参数自动加载
+window.onload = () => {
+    const p = new URLSearchParams(location.search);
+    if(p.has('a')) {
+        document.getElementById('algo').value = p.get('a');
+        if(p.has('q')) document.getElementById('qubits').value = p.get('q');
+        if(p.has('c')) document.getElementById('code').value = p.get('c');
+        if(p.has('d')) document.getElementById('duration').value = p.get('d');
+        calculate();
+    }
+};
+</script>
+</body>
+</html>
