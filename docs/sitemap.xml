@@ -1,48 +1,66 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- 首页 -->
-  <url>
-    <loc>https://z2njks4df7-star.github.io/seo-factory/</loc>
-    <lastmod>2026-06-14</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  
-  <!-- 核心爆款文章 -->
-  <url>
-    <loc>https://z2njks4df7-star.github.io/seo-factory/article_2026资产保命清单.html</loc>
-    <lastmod>2026-06-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://z2njks4df7-star.github.io/seo-factory/article_量子危机实录.html</loc>
-    <lastmod>2026-06-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- 工具页 -->
-  <url>
-    <loc>https://z2njks4df7-star.github.io/seo-factory/tools/quantum-cost-calculator-v8.html</loc>
-    <lastmod>2026-06-14</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  
-  <!-- 资源页 -->
-  <url>
-    <loc>https://z2njks4df7-star.github.io/seo-factory/resources/download-lead.html</loc>
-    <lastmod>2026-06-14</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <!-- Newsletter -->
-  <url>
-    <loc>https://z2njks4df7-star.github.io/seo-factory/tools/newsletter.html</loc>
-    <lastmod>2026-06-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
+<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/</loc><priority>1.0</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/2026-年最火的-5-个-python-库.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/a.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/ai-agent-如何彻底改变工作流.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/ai-agent-神经链接.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/ai-奇点临界值.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_0_AI_Agent_如何彻底改变工作流.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_1_2026_年最火的_5_个_Python_库.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_2026资产保命清单.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_2_Web3_去中心化身份_(DID)_详解.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_6G-通信标准.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_AI-绘画版权争议.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_AI换脸诈骗预警.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_Web3-去中心化社交.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_ai-制药突破.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_人工智能伦理.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_元宇宙身份认证.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_养老危机预警.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_区块链隐私计算.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_可持续能源-AI.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_基因编辑伦理.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_太空互联网.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_意识上传技术.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_房产泡沫破裂预警.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_数字人立法.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_数字永生计划.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_生成式-AI-泡沫.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_神经网络剪枝.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_神经链接接口.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_股市崩盘预警.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_脑机接口革命.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_自动驾驶安全漏洞.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_虚拟主播经济.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_边缘计算未来.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_量子危机实录.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_量子密码学.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_量子纠缠通信.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_隐私泄露危机.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_隐私计算云平台.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_零知识证明应用.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/article_黄金崩盘预警.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/b.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/c.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/generated_量子纠缠.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/generated_量子缐合.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/rag-检索增强生成实战.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/web3-去中心化脑机接口.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/web3-去中心化身份-(did)-详解.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/人造神经突触.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/元宇宙架构重构.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/光子计算奇点.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/大模型微调避坑指南.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/大模型自我进化.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/意识上传指南.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/数字意识上传.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/数字永生技术.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/熵减算法.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/神经链接协议-v4.5.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/虚拟宇宙引擎.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/赛博空间架构.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/量子神经网络.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/量子纠缠网络.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/量子计算实战.html</loc><priority>0.8</priority></url>
+  <url><loc>https://z2njks4df7-star.github.io/seo-factory/零知识证明密码学.html</loc><priority>0.8</priority></url>
 </urlset>
