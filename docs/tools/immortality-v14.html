@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>2026 资产永生计划 v14.0 - 你的末日生存指南</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root { --primary: #ff0055; --secondary: #00ffcc; --bg: #050505; --panel: #111; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: #fff; margin: 0; padding: 0; overflow-x: hidden; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        
+        /* 顶部状态栏 */
+        .status-bar { background: #1a1a1a; padding: 15px; border-radius: 10px; margin-bottom: 20px; border: 1px solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
+        .user-level { font-size: 0.9rem; color: #888; }
+        .streak-count { color: var(--secondary); font-weight: bold; font-size: 1.1rem; }
+        
+        /* 今日战报 */
+        .battle-report { background: linear-gradient(135deg, #1a0505, #051a05); padding: 20px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid var(--primary); box-shadow: 0 4px 20px rgba(255,0,85,0.2); }
+        .report-title { font-size: 1.2rem; font-weight: bold; color: var(--primary); margin-bottom: 10px; }
+        .report-metric { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.95rem; }
+        .metric-val { font-weight: bold; }
+        .val-down { color: var(--primary); }
+        .val-up { color: var(--secondary); }
+        
+        /* 动态剧本区 */
+        .script-box { background: #000; border: 1px solid #333; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-family: monospace; color: #ccc; font-size: 0.9rem; white-space: pre-wrap; line-height: 1.6; }
+        .script-box strong { color: var(--secondary); }
+        
+        /* 阵营选择 */
+        .faction-select { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .faction-card { background: #1a1a1a; border: 2px solid #333; padding: 15px; border-radius: 8px; text-align: center; cursor: pointer; transition: 0.3s; }
+        .faction-card.active { border-color: var(--secondary); box-shadow: 0 0 15px rgba(0,255,204,0.3); transform: scale(1.05); }
+        .faction-icon { font-size: 1.5rem; margin-bottom: 5px; }
+        .faction-name { font-size: 0.9rem; font-weight: bold; }
+        
+        /* 排行榜 */
+        .leaderboard { background: #111; border: 1px solid #333; border-radius: 8px; padding: 10px; margin-bottom: 20px; }
+        .lb-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #222; font-size: 0.9rem; }
+        .lb-item:last-child { border-bottom: none; }
+        .lb-name { color: #888; }
+        .lb-score { color: var(--secondary); font-weight: bold; }
+        
+        /* 签到按钮 */
+        .签到-btn { width: 100%; padding: 15px; background: var(--secondary); color: #000; font-weight: bold; border: none; border-radius: 8px; font-size: 1.1rem; cursor: pointer; margin-top: 20px; }
+        .签到-btn:disabled { background: #444; cursor: not-allowed; }
+        
+        /* 每日任务 */
+        .tasks { margin-top: 20px; }
+        .task-item { background: #1a1a1a; padding: 10px; border-radius: 6px; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .task-checkbox { width: 20px; height: 20px; accent-color: var(--primary); }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="status-bar">
+        <div class="user-level"> режим: <span style="color:var(--secondary)">末日生存者 Lv.1</span></div>
+        <div class="streak-count">🔥 连续签到：0 天</div>
+    </div>
+
+    <!-- 今日战报 (动态生成) -->
+    <div class="battle-report" id="battle-report">
+        <div class="report-title">🚨 今日资产战报</div>
+        <div class="report-metric"><span>BTC 波动影响:</span> <span class="metric-val val-down">-12.5%</span></div>
+        <div class="report-metric"><span>黄金避险收益:</span> <span class="metric-val val-up">+3.2%</span></div>
+        <div class="report-metric"><span>量子威胁指数:</span> <span class="metric-val val-down">98.7%</span></div>
+    </div>
+
+    <!-- 动态剧本 -->
+    <div class="script-box" id="script-box">
+        <strong>[系统日志]</strong> 欢迎回到生存计划，幸存者。
+        今天是 2026 年 6 月 15 日。
+        根据你的资产配置，系统检测到：<span id="dynamic-alert">高风险警报！</span>
+        如果不在 24 小时内执行防御，你的资产可能损失 <span id="potential-loss">15%</span>。
+        请查看今日任务。
+    </div>
+
+    <!-- 阵营选择 -->
+    <div style="margin-bottom: 10px; color:#888; font-size:0.9rem">选择你的阵营：</div>
+    <div class="faction-select">
+        <div class="faction-card" onclick="selectFaction('gold')">
+            <div class="faction-icon">🏆</div>
+            <div class="faction-name">黄金信徒</div>
+        </div>
+        <div class="faction-card" onclick="selectFaction('crypto')">
+            <div class="faction-icon">💻</div>
+            <div class="faction-name">赛博朋克</div>
+        </div>
+        <div class="faction-card" onclick="selectFaction('cash')">
+            <div class="faction-icon">💵</div>
+            <div class="faction-name">法币堡垒</div>
+        </div>
+    </div>
+
+    <!-- 每日任务 -->
+    <div class="tasks">
+        <div style="font-weight:bold; color:var(--secondary); margin-bottom:10px">📋 今日生存任务</div>
+        <div class="task-item">
+            <input type="checkbox" class="task-checkbox" id="task1">
+            <label for="task1">检查黄金价格 (3 秒)</label>
+        </div>
+        <div class="task-item">
+            <input type="checkbox" class="task-checkbox" id="task2">
+            <label for="task2">转移 5% 资产到冷钱包 (5 分钟)</label>
+        </div>
+        <div class="task-item">
+            <input type="checkbox" class="task-checkbox" id="task3">
+            <label for="task3">阅读量子防御简报 (1 分钟)</label>
+        </div>
+    </div>
+
+    <!-- 签到 -->
+    <button class="签到-btn" onclick="checkIn()">✅ 领取今日生存物资 (签到)</button>
+
+    <!-- 阵营排行榜 -->
+    <div class="leaderboard">
+        <div style="font-weight:bold; margin-bottom:10px; color:var(--secondary)">🏆 阵营幸存者排行榜 (今日)</div>
+        <div class="lb-item"><span class="lb-name">1. 黄金信徒</span> <span class="lb-score">65% 幸存率</span></div>
+        <div class="lb-item"><span class="lb-name">2. 法币堡垒</span> <span class="lb-score">42% 幸存率</span></div>
+        <div class="lb-item"><span class="lb-name">3. 赛博朋克</span> <span class="lb-score">28% 幸存率</span></div>
+    </div>
+</div>
+
+<script>
+// 1. 本地持久化状态管理
+const STATE_KEY = 'asset_survival_state';
+let state = JSON.parse(localStorage.getItem(STATE_KEY)) || {
+    day: 0,
+    faction: null,
+    tasksDone: 0,
+    lastCheckIn: null
+};
+
+// 2. 初始化：生成今日动态剧本
+function init() {
+    const today = new Date().toDateString();
+    
+    // 更新每日战报
+    if(state.lastCheckIn !== today) {
+        // 随机生成今日战报
+        const btcChange = (Math.random() * 20 - 12).toFixed(1);
+        const goldChange = (Math.random() * 8 - 2).toFixed(1);
+        document.querySelector('.val-down').innerText = (btcChange < 0 ? '-' : '') + btcChange + '%';
+        document.querySelector('.val-up').innerText = (goldChange > 0 ? '+' : '') + goldChange + '%';
+        
+        // 更新剧本
+        const alertText = state.faction === 'gold' ? '你的黄金正在避险中' : (state.faction === 'crypto' ? '量子攻击可能爆发！' : '法币贬值加速！');
+        const lossText = (Math.random() * 20 + 5).toFixed(1);
+        document.getElementById('dynamic-alert').innerText = alertText;
+        document.getElementById('potential-loss').innerText = lossText + '%';
+    }
+}
+
+// 3. 阵营选择
+function selectFaction(type) {
+    state.faction = type;
+    localStorage.setItem(STATE_KEY, JSON.stringify(state));
+    
+    // 视觉反馈
+    document.querySelectorAll('.faction-card').forEach(c => c.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    
+    const names = { gold: '黄金信徒', crypto: '赛博朋克', cash: '法币堡垒' };
+    alert('已加入【' + names[type] + '】阵营！
+你的生存策略已更新。');
+}
+
+// 4. 签到功能
+function checkIn() {
+    const today = new Date().toDateString();
+    if(state.lastCheckIn === today) {
+        alert('今日已签到！继续坚持，生存者！');
+        return;
+    }
+    
+    state.day++;
+    state.lastCheckIn = today;
+    localStorage.setItem(STATE_KEY, JSON.stringify(state));
+    
+    document.querySelector('.streak-count').innerText = '🔥 连续签到：' + state.day + ' 天';
+    document.querySelector('.签到-btn').disabled = true;
+    document.querySelector('.签到-btn').innerText = '✅ 今日任务已领取';
+    
+    alert('🎉 签到成功！
+生存积分 +10
+今日战报已更新。
+
+建议：尽快完成“转移资产”任务，否则损失将扩大。');
+}
+
+// 5. 任务完成 (模拟)
+document.querySelectorAll('.task-checkbox').forEach(cb => {
+    cb.addEventListener('change', function() {
+        state.tasksDone++;
+        if(state.tasksDone === 3) {
+            alert('🏆 恭喜！今日任务全部完成！
+你比 99% 的幸存者都更专业。
+
+明日奖励预览：专属防御装备。');
+        }
+    });
+});
+
+// 启动
+init();
+</script>
+</body>
+</html>

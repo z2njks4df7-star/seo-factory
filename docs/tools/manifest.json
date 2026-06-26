@@ -1,0 +1,9 @@
+{
+  "name": "2026 资产永续计划 v14.5",
+  "short_name": "资产永续",
+  "description": "资产永续计划工具包，包含热点新闻、阵营切换、心理测试、签到等功能。",
+  "start_url": "/tools/immortality-v14.5.html",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#00d4aa"
+}
