@@ -1,0 +1,26 @@
+{
+  "name": "seo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gen_v135_cyberpunk.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/z2njks4df7-star/seo-factory.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/z2njks4df7-star/seo-factory/issues"
+  },
+  "homepage": "https://github.com/z2njks4df7-star/seo-factory#readme",
+  "dependencies": {
+    "html-minifier-terser": "^7.2.0"
+  }
+}
