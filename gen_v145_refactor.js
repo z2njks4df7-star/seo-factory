@@ -35,6 +35,7 @@ const html = `<!DOCTYPE html>
             --accent2: #ff4757;
             --muted: #888;
             --font-smooth: antialiased;
+            --marquee-speed: 1px;
         }
         * { box-sizing: border-box; margin:0; padding:0; }
         html { font-size: 100%; scroll-behavior: smooth; }
@@ -49,32 +50,139 @@ const html = `<!DOCTYPE html>
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
         }
-        .container { max-width:600px; margin:0 auto; padding:16px; contain: layout style; }
+        .container { max-width:600px; margin:0 auto; padding:16px; contain: layout style; container-type: inline-size; }
         /* 热点新闻滚轮 */
-        .news-ticker { background:#1a1a1a; border-radius:8px; padding:10px 14px; margin-bottom:16px; border-left:3px solid var(--accent2); font-size:0.9rem; overflow:hidden; white-space:nowrap; contain:strict; }
-        .news-label { color:var(--accent2); display:inline-block; margin-right:10px; font-weight:bold; user-select:none; pointer-events:none; }
-        .news-text { display:inline-block; will-change:transform; }
+        .news-ticker {
+            background:#1a1a1a;
+            border-radius:8px;
+            padding-block:10px;
+            padding-inline:14px;
+            margin-block-end:16px;
+            border-inline-start:3px solid var(--accent2);
+            font-size:0.9rem;
+            overflow:hidden;
+            white-space:nowrap;
+            contain:strict;
+        }
+        .news-label {
+            color:var(--accent2);
+            display:inline-block;
+            margin-inline-end:10px;
+            font-weight:bold;
+            user-select:none;
+            pointer-events:none;
+        }
+        .news-text {
+            display:inline-block;
+            will-change:transform;
+        }
         /* 阵营专属 Banner */
-        .banner { padding:14px; border-radius:10px; margin-bottom:16px; font-weight:bold; display:none; }
-        .banner-gold { background:#1a0f00; border:1px solid #d4a017; color:#d4a017; display:block; }
-        .banner-crypto { background:#0d1b1e; border:1px solid var(--accent); color:var(--accent); display:block; }
-        .banner-fiat { background:#1a1a2e; border:1px solid #e94560; color:#e94560; display:block; }
+        .banner {
+            padding-block:14px;
+            padding-inline:14px;
+            border-radius:10px;
+            margin-block-end:16px;
+            font-weight:bold;
+            display:none;
+        }
+        .banner-gold {
+            background:#1a0f00;
+            border-inline-start:1px solid #d4a017;
+            color:#d4a017;
+            display:block;
+        }
+        .banner-crypto {
+            background:#0d1b1e;
+            border-inline-start:1px solid var(--accent);
+            color:var(--accent);
+            display:block;
+        }
+        .banner-fiat {
+            background:#1a1a2e;
+            border-inline-start:1px solid #e94560;
+            color:#e94560;
+            display:block;
+        }
         /* 心理测试 */
-        .quiz { background:#111; padding:16px; border-radius:10px; margin-bottom:16px; }
-        .quiz-question { font-weight:bold; margin-bottom:12px; }
-        .quiz-option { background:#1a1a1a; padding:10px; border-radius:6px; margin-bottom:6px; cursor:pointer; transition:0.2s; user-select:none; }
+        .quiz {
+            background:#111;
+            padding:16px;
+            border-radius:10px;
+            margin-block-end:16px;
+            container-type: inline-size;
+        }
+        .quiz-question {
+            font-weight:bold;
+            margin-block-end:12px;
+        }
+        .quiz-option {
+            background:#1a1a1a;
+            padding:10px;
+            border-radius:6px;
+            margin-block-end:6px;
+            cursor:pointer;
+            transition:0.2s;
+            user-select:none;
+        }
         .quiz-option:hover { background:#2a2a2a; }
-        .quiz-option.selected { background:#2d3748; border-left:3px solid var(--accent); }
-        .quiz-result { display:none; margin-top:16px; padding:16px; background:#0d1b2a; border-radius:8px; }
+        .quiz-option.selected { background:#2d3748; border-inline-start:3px solid var(--accent); }
+        .quiz-result {
+            display:none;
+            margin-block-start:16px;
+            padding:16px;
+            background:#0d1b2a;
+            border-radius:8px;
+        }
         /* 每日战报 */
-        .战报 { background:#111; padding:14px; border-radius:10px; margin-bottom:16px; }
-        .战报 h3 { margin:0 0 8px 0; font-size:1rem; color:#ffa502; }
-        .战报-item { display:flex; justify-content:space-between; margin-bottom:6px; font-size:0.9rem; }
+        .战报 {
+            background:#111;
+            padding:14px;
+            border-radius:10px;
+            margin-block-end:16px;
+        }
+        .战报 h3 {
+            margin:0 0 8px 0;
+            font-size:1rem;
+            color:#ffa502;
+        }
+        .战报-item {
+            display:flex;
+            justify-content:space-between;
+            margin-block-end:6px;
+            font-size:0.9rem;
+        }
         /* 阵营选择 */
-        .factions { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:16px; }
-        .faction { background:#1a1a1a; border:2px solid #333; padding:12px; border-radius:8px; text-align:center; cursor:pointer; transition:0.2s; user-select:none; }
+        .factions {
+            display:grid;
+            grid-template-columns:repeat(3, 1fr);
+            gap:10px;
+            margin-block-end:16px;
+            container-type: inline-size;
+        }
+        .faction {
+            background:#1a1a1a;
+            border:2px solid #333;
+            padding:12px;
+            border-radius:8px;
+            text-align:center;
+            cursor:pointer;
+            transition:0.2s;
+            user-select:none;
+        }
         .faction.active { border-color:var(--accent); background:#0d1b1e; }
-        .btn { width:100%; padding:14px; background:var(--accent); color:#000; font-weight:bold; border:none; border-radius:8px; cursor:pointer; font-size:1rem; -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
+        .btn {
+            width:100%;
+            padding-block:14px;
+            background:var(--accent);
+            color:#000;
+            font-weight:bold;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+            font-size:1rem;
+            -webkit-tap-highlight-color:transparent;
+            touch-action:manipulation;
+        }
         .btn:disabled { background:#333; color:#666; }
         /* Content visibility for off‑screen sections */
         .offscreen { content-visibility:auto; contain-intrinsic-size:0px 1500px; }
@@ -100,6 +208,17 @@ const html = `<!DOCTYPE html>
             }
             body { background:var(--bg); color:var(--fg); }
         }
+        /* Reduce data */
+        @media (prefers-reduced-data: reduce) {
+            :root { --marquee-speed: 0px; }
+            .news-text { animation-play-state: paused; }
+        }
+        /* Container query example: adjust fagtion padding on wider containers */
+        @container (min-width: 400px) {
+            .faction { padding:16px; }
+        }
+        /* Subgrid example: if we ever need nested grid */
+        .factions { display:grid; grid-template-columns:subgrid; } /* placeholder */
     </style>
 </head>
 <body>
@@ -119,7 +238,7 @@ const html = `<!DOCTYPE html>
     </div>
 
     <!-- 阵营选择 -->
-    <div style="margin-bottom:6px; font-size:0.85rem; color:#888">选择你的阵营（决定你看到的内容）:</div>
+    <div style="margin-block-end:6px; font-size:0.85rem; color:#888">选择你的阵营（决定你看到的内容）:</div>
     <div class="factions">
         <div class="faction" data-faction="gold" onclick="setFaction('gold', this)">🥇 黄金信徒</div>
         <div class="faction" data-faction="crypto" onclick="setFaction('crypto', this)">💻 赛博朋克</div>
@@ -127,7 +246,7 @@ const html = `<!DOCTYPE html>
     </div>
 
     <!-- 专属内容区 -->
-    <div id="faction-content" class="offscreen" style="margin-bottom:16px">
+    <div id="faction-content" class="offscreen" style="margin-block-end:16px">
         <div class="banner-gold banner">🥇 黄金信徒 · 今日利好：全球央行单周增持黄金 50 吨，金价飙升 3%</div>
         <div class="banner-crypto banner" style="display:none">💻 赛博朋克 · 紧急警报：IBM 量子芯片突破，你的冷钱包可能不安全</div>
         <div class="banner-fiat banner" style="display:none">💵 法币堡垒 · 重磅消息：央行 DCEP 全面铺开，现金支付将受限制</div>
@@ -139,14 +258,14 @@ const html = `<!DOCTYPE html>
         <p style="font-size:0.85rem; color:#888">选择最符合你的选项：</p>
 
         <div id="q1">
-            <div style="margin-bottom:10px">如果明天发生金融危机，你首先会：</div>
+            <div style="margin-block-end:10px">如果明天发生金融危机，你首先会：</div>
             <div class="quiz-option" onclick="selectQuiz(1, 'a')">A. 立刻去银行取现金</div>
             <div class="quiz-option" onclick="selectQuiz(1, 'b')">B. 打开电脑转移加密资产</div>
             <div class="quiz-option" onclick="selectQuiz(1, 'c')">C. 买黄金</div>
         </div>
 
         <div id="q2" style="display:none">
-            <div style="margin-bottom:10px">你相信什么能对抗通胀？</div>
+            <div style="margin-block-end:10px">你相信什么能对抗通胀？</div>
             <div class="quiz-option" onclick="selectQuiz(2, 'a')">A. 什么都不信，现金为王</div>
             <div class="quiz-option" onclick="selectQuiz(2, 'b')">B. 只有去中心化资产</div>
             <div class="quiz-option" onclick="selectQuiz(2, 'c')">C. 实物黄金</div>
@@ -154,7 +273,7 @@ const html = `<!DOCTYPE html>
 
         <div class="quiz-result" id="quiz-result">
             <div style="font-weight:bold; font-size:1.1rem;" id="result-title">保守型守护者</div>
-            <p style="color:#aaa; margin:8px 0; font-size:0.9rem" id="result-desc">你更注重安全，适合黄金和国债。</p>
+            <p style="color:#aaa; margin-block-start:8px; margin-block-end:0; font-size:0.9rem" id="result-desc">你更注重安全，适合黄金和国债。</p>
             <button class="btn" onclick="shareResult()">📱 分享我的资产人格</button>
         </div>
     </div>
@@ -212,7 +331,7 @@ if (navigator.connection) {
         lowEnd = true;
     }
 }
-const marqueeSpeed = reduceMotion.matches || lowEnd ? 0 : 1; // px per frame (0 if reduced motion or low-end)
+const marqueeSpeed = (reduceMotion.matches || lowEnd) ? 0 : 1; // px per frame (0 if reduced motion or low-end)
 const NEWS_INTERVAL = lowEnd ? 20000 : 10000; // ms
 
 function updateMarquee() {
@@ -419,9 +538,42 @@ function checkIn() {
 
     alert('🎉 签到成功！连续 ' + appState.streak + ' 天！');
 }
-</script>
 
-<script>
+// 5. Web Vitals监控（可选）
+if ('performance' in window) {
+    // 动态加载 web-vitals 库
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/web-vitals@3/dist/web-vitals.attribution.js';
+    script.onload = () => {
+        // 简单上报，实际可上报到您的分析服务器
+        webVitals.getCLS(({value}) => { if (value > 0.1) console.warn('CLS 高:', value); });
+        webVitals.getFID(({value}) => { if (value > 100) console.warn('FID 高:', value); });
+        webVitals.getLCP(({value}) => { if (value > 2500) console.warn('LCP 高:', value); });
+    };
+    script.onerror = () => console.warn('Web Vitals 加载失败');
+    document.head.appendChild(script);
+}
+
+// 6. Background Sync 示例（尝试注册周期同步以预取新闻）
+if ('serviceWorker' in navigator && 'PeriodicBackgroundSync' in window) {
+    navigator.serviceWorker.ready.then(reg => {
+        // 请求权限（仅演示，实际需用户交互）
+        Notification.requestPermission().then(perm => {
+            if (perm === 'granted') {
+                // 注册每 12 小时一次的同步（实际最小间隔受限制）
+                try {
+                    reg.periodicSync.register('fetch-news', {
+                        minInterval: 12 * 60 * 60 * 1000 // 12小时
+                    });
+                } catch (e) {
+                    console.warn('Periodic background sync 不可用或被拒绝:', e);
+                }
+            }
+        });
+    });
+}
+
+// 7. Service Worker 注册（保持原有）
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/tools/worker.js').then(reg => {
@@ -432,6 +584,7 @@ if ('serviceWorker' in navigator) {
     });
 }
 </script>
+
 </body>
 </html>`;
 
@@ -455,3 +608,7 @@ console.log("- Page Lifecycle API: freeze/resume 事件暂停/恢复新闻循环
 console.log("- CSS 层：CSS 变量、字体平滑、文本渲染、深色/浅色/对比适配");
 console.log("- 移动端 PWA 元标签：apple-mobile-web-app-capable、status-bar等");
 console.log("- 内联 SVG favicon");
+console.log("- 新增：Container Queries、Logical Properties、prefers-reduced-data 媒体查询");
+console.log("- 新增：Web Vitals 监控（自动加载 web-vitals 库）");
+console.log("- 新增：尝试注册 Periodic Background Sync 以在后台预取新闻");
+console.log("- 新增：CSS 中添加了示例 Container Query、Subgrid 注释（可根据需求启用）");
